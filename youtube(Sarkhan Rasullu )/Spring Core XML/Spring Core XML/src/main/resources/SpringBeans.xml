@@ -1,0 +1,27 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="student" class="beans.Student" autowire="constructor">
+        <!--<constructor-arg ref="teacher"/>-->
+        <!--<property name="name" value="Murad" />-->
+        <!--<property name="teacher" ref="teacher" />-->
+    </bean>
+    
+    <bean id="teacher" class="beans.Teacher">
+        <property name="name" value="Fikret" />
+    </bean>
+    
+    <!--    <bean id="teacher2" class="beans.Teacher">
+        <property name="name" value="Fikret" />
+    </bean>-->
+    <bean id="str" class="java.lang.String">
+        <constructor-arg value="Murad"/>
+    </bean>
+    
+        
+    <!--    <bean id="userDAO" class="dao.UserDaoImpl" scope="singleton">
+    </bean>-->
+
+</beans>
