@@ -17,7 +17,9 @@ public class Fanar {
     private Fanar() {
 
     }
-
+    
+    //burada public etmeyin sebebi odurki istesek konstructora set ederik(onsuzda set metodlari private olduguna gore sonra deyishmek olmayacaq)
+    //yada ki konstructor yox fanarbuilder obyekti yaradib onun setleri ile ishlemek olar
     public Fanar(String name, Lampa l) {
         this.name = name;
         this.l = l;
@@ -31,7 +33,7 @@ public class Fanar {
         return l;
     }
 
-    //set methodlarini umumiyyetle silmek olar , onda ashagida set zamani f.name = name; olacaq,
+    //set methodlarini umumiyyetle silmek olar , onda ashagida set zamani(builderin set metodlarinda) f.name = name; olacaq,
     //ya daki private edirik ve FanarBulder den bashqa hech kim chagira bilmir
     private void setName(String name) {
         this.name = name;
@@ -41,9 +43,11 @@ public class Fanar {
         this.l = l;
     }
 
-    public static FanarBuilder builder() {
-        return new FanarBuilder();
-    }
+    
+    //builder() metodunun niye oldugu main class da komentde yazilib
+//    public static FanarBuilder builder() {
+//        return new FanarBuilder();
+//    }
 
     public static class FanarBuilder {
 
@@ -68,7 +72,7 @@ public class Fanar {
         public Fanar build() {
             return new Fanar(f.name, f.l);
 //asahgidaki halda eger bulder.build() chagirildigdan sonra
-//builder.setName() deyilib teze name verilse bu zaman nullPointerExc atacaq
+//builder.setName() deyilib teze name verilse, ve onu get etsek bu zaman nullPointerExc atacaq
 //            Fanar ff = f;
 //            f = null;
 //            return ff;

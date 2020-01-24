@@ -5,7 +5,7 @@
  */
 package builderpattern;
 
-import builderpattern.Fanar;
+import builderpattern.Fanar.FanarBuilder;
 import builderpattern.Lampa;
 
 /**
@@ -18,17 +18,21 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        Fanar.FanarBuilder builder = Fanar.builder();
-        
-        builder.setName("name");
-        builder.setL(new Lampa());
         
         
-        Fanar l = builder.build();
+//        FanarBuilder builder = Fanar.builder();//bu da geriye fanarbuilder obyecti return edir
+        
+        FanarBuilder builder1 = new Fanar.FanarBuilder();//bu da hemchinin(burada builder classi nested olduguna gore objecti bele yaranir)
+        
+        builder1.setName("name");
+        builder1.setL(new Lampa());
+        
+        
+        Fanar l = builder1.build();
         
         
         System.out.println(l.getName());
+
     }
     
 }
