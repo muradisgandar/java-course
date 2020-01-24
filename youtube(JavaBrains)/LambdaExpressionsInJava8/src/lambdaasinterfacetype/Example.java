@@ -9,6 +9,7 @@ package lambdaasinterfacetype;
  *
  * @author murad_isgandar
  */
+@FunctionalInterface//restricted declaration of another abstract methods
 public interface Example {
     
     public void foo();
