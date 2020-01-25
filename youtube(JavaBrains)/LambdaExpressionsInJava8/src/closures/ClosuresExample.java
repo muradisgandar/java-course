@@ -30,7 +30,7 @@ public class ClosuresExample {
 
 }
 
-interface Process {
+ interface Process {
 
     void process(int i);
 }
