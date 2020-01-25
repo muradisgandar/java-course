@@ -8,12 +8,14 @@ package exercises;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Predicate;//Predicate is a standart function in function library
 
 /**
  *
  * @author murad_isgandar
  */
-public class SolutionInJava8Lambdas {
+public class StandartFunctionExample {
 
     public static void main(String[] args) {
 
@@ -34,10 +36,13 @@ public class SolutionInJava8Lambdas {
         //Step3: create method that prints all people that have surname begining with c
 
         System.out.println("Printing all persons with surname begining C");
-        printConditionally(people, (p) -> p.getSurname().startsWith("C"));
+        printConditionally(people, (p) -> p.getSurname().startsWith("C"), p -> System.out.println(p));
 
         System.out.println("Printing all persons with name begining C");
-        printConditionally(people, (p) -> p.getName().startsWith("C"));
+        printConditionally(people, (p) -> p.getName().startsWith("C"), p -> System.out.println(p.getName()));
+
+        //by Consumer interface we can pass different operations to method 
+        //example : printconditionally method pass 3 rd argument in differently for name and surname
     }
 
     private static void printAll(List<Person> people) {
@@ -47,10 +52,11 @@ public class SolutionInJava8Lambdas {
         }
     }
 
-    private static void printConditionally(List<Person> people, Condition c) {
-        for (Person p : people) {
-            if (c.test(p)) {
-                System.out.println(p);
+    private static void printConditionally(List<Person> people, Predicate<Person> c, Consumer<Person> consumer) {
+        for (Person t : people) {
+            if (c.test(t)) {
+                consumer.accept(t);//accept() method can execute any different operation which is passed as argument to methods
+
             }
         }
     }
