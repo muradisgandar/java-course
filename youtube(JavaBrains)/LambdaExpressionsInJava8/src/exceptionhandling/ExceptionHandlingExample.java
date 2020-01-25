@@ -6,6 +6,11 @@
 package exceptionhandling;
 
 import java.util.function.BiConsumer;
+/*
+different from Consumer,this interface accept(T t,K k) method have 2 arguments ,that's why
+we can pass different arguments and operate different operations with BiConsumer
+below example Biconsumer is applied in math operations with using lambda expressions
+*/
 
 /**
  *
