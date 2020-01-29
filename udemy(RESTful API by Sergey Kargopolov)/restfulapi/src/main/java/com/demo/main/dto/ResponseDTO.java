@@ -23,6 +23,14 @@ public class ResponseDTO {
         this.msg = msg;
         this.code = code;
     }
+
+    public ResponseDTO(String msg, Integer code) {
+        this.msg = msg;
+        this.code = code;
+    }
+    
+    
+    
     
     
 }

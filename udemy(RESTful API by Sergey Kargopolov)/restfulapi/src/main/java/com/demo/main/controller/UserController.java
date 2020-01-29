@@ -8,7 +8,14 @@ package com.demo.main.controller;
 import com.demo.main.bean.User;
 import com.demo.main.dto.ResponseDTO;
 import com.demo.main.dto.UserDTO;
+import com.demo.main.exceptions.UserServiceException;
+import com.demo.main.services.inter.UserServiceInter;
+import com.demo.main.utilities.RandomIdUtil;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +37,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class UserController {
 
+    Map<String, User> users;
+
+    @Autowired
+    UserServiceInter userServiceInter;
+
     @GetMapping//@RequestParam(value = "page", defaultValue = "1") default shows that if no request param has sended ,then page is accepted 1
     public String getUsers(@RequestParam(value = "page", defaultValue = "1") Integer page,
             @RequestParam(value = "limit", defaultValue = "50") Integer limit,
@@ -40,12 +52,16 @@ public class UserController {
 
     @GetMapping(path = "/{id}", produces = {MediaType.APPLICATION_XML_VALUE,
         MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity getUser(@PathVariable Integer id) {
-        User returnObj = new User();
-        returnObj.setName("Murad");
-        returnObj.setSurname("Isgandarli");
-        returnObj.setEmail("mr.murad157@mail.ru");
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO(returnObj, "Successfully got", 200));
+    public ResponseEntity getUser(@PathVariable String id) {
+
+        User user = userServiceInter.getUser(id);
+
+        if (user != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO(user, "Successfully got", 200));
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("Successfully got", 404));
+        }
+
     }
 
     //consumes - produces (xml va ya json ile alib,xml ve ya json ile qaytarmaq(return etmek))
@@ -55,24 +71,29 @@ public class UserController {
                 MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_XML_VALUE,
                 MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity addUser(@Valid @RequestBody UserDTO user) {
+    public ResponseEntity addUser(@Valid @RequestBody UserDTO userdto) {
 
-        User returnObj = new User();
-        returnObj.setName(user.getName());
-        returnObj.setSurname(user.getSurname());
-        returnObj.setEmail(user.getEmail());
+        User returnObj = userServiceInter.createUser(userdto);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO(returnObj, "Successfully added", 200));
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO(returnObj, "Successfully added", 201));
     }
 
-    @PutMapping
-    public String updateUser() {
-        return "updateuser";
+    @PutMapping(path = "/{id}",
+            consumes = {MediaType.APPLICATION_XML_VALUE,
+                MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_XML_VALUE,
+                MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity updateUser(@PathVariable String id, @RequestBody UserDTO userdto) {
+
+        User user = userServiceInter.updateUser(userdto, id);
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO(user, "Successfully updated", 202));
     }
 
-    @DeleteMapping
-    public String deleteUser() {
-        return "deleteuser";
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity deleteUser(@PathVariable String id) {
+
+        String removeId = userServiceInter.removeUser(id);
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO(removeId,"Successfully deleted", 203));
     }
 
 }

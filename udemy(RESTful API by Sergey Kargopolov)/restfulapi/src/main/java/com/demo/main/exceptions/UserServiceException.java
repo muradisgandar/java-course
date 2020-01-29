@@ -3,20 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.demo.main.bean;
-
-import lombok.Data;
+package com.demo.main.exceptions;
 
 /**
  *
  * @author murad_isgandar
  */
-@Data
-public class User {
+public class UserServiceException extends RuntimeException{
     
-    private String name;
-    private String surname;
-    private String email;
-    private String id;
-    
+    public UserServiceException(String message){
+        super(message);
+    }
 }

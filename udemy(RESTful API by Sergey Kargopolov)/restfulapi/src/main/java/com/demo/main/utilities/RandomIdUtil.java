@@ -3,20 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.demo.main.bean;
+package com.demo.main.utilities;
 
-import lombok.Data;
+import java.util.UUID;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author murad_isgandar
  */
-@Data
-public class User {
+@Service
+public class RandomIdUtil {
     
-    private String name;
-    private String surname;
-    private String email;
-    private String id;
-    
+    public String generateUserId(){
+        return UUID.randomUUID().toString();
+    }
 }
