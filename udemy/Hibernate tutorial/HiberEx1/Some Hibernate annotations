@@ -1,0 +1,137 @@
+1.----@GeneratedValue(strategy = GenerationType.AUTO)
+
+
+2 formada ishenir : generator ve strategy
+
+
+4 ferqli strategy tipi var:
+
+
+AUTO - primary key id ni hibernate ozu artirir
+
+
+IDENTITY - her insert uchun bir deyer yaradir
+
+
+SEQUENCE - id artimi sequence ile aparilir eger sequence belli deyilse hibernate default sequence ile artim eder.Eger sequence teyun etmek isteyirikse @SequenceGenarator ist ede bilerik
+
+
+2.------@Column(precision=15,scale=2)//vergulden evvel 15 reqem sonra 2 reqem 
+
+private BigDecimal deger 
+
+
+@Column(length=100)//stringin olchusunu gosterir
+
+private String name
+
+
+@Column(name="mail",updateable = false)//column u adi mail olacaq,sonra updat etmek olmayacaq
+
+private String email
+
+
+@Column(name="number",inserable = false)//column u adi number olacaq,insert etmek olmayacaq , ancaq update zamani ist etmek olar
+
+private String number
+
+
+3.---------@Version
+
+private long version
+
+ferqli transactionlarda eyni data uzerinde eyni anda deyishiklik aparilmasinin qarshisini alir(Optimistik Locking)
+
+roll was updated or deleted in another transaction atirsa bu annotation ishe dushub demekdir
+
+
+4.-----------------@Temporal
+
+tarixi db ye yazanda hansi shekilde tutacaqimizi gostermek uchundur
+
+3 tipi var
+
+DATE - (dd:mm:yyyy)
+
+TIME(hh:mm:ss)
+
+DATATIME(dd:mm:yyyy hh:mm:ss )
+
+
+5.------------@Transient
+
+entityde olan amma db de olmagini istemediyimz variable lara yaziriq.
+
+RAM da saxlanir,classin objecti silinen kimi bu deyishende silinir
+
+@Transient
+
+private boolean isValid
+
+
+6.----------@Lob
+
+blob ve ya clob data uchun ishlenir db bu annotationu gordukde uygun data uchun coxlu yer ayirir
+
+7.-----------@OneToOne - join olan table ile arada  elaqni gosterir
+ numune: insan ve barmaq izi 
+Diqqet!!!! burada hech biri ozunde list saxlamir,elaqe birebir olur!!  list saxlayan elaqler obrilerdir
+
+@OneToOne{
+cascade = CascadeType.All,   //bu table da data remove,edit ve s emelyatlari join oldugu tablein uygun datasina tetbiq etmek uchun cascade type verilir
+fetch = FetchType.LAZY,  // join oldugu tablein datasini getirmek uchundur LAZY ve EAGER olur
+mappedBy = "insan", // mappedBy gosterirki db de insan tableinda parmaqizi columnu yoxdur amma entity de var.(mappedBy hansi entityde ishlense bu menani ifade edir)
+optional = false  // default truedur yeni uygun columnu doldurmamaq olar , amma fase olarsa mutleq doldurulmalidir
+}
+private ParmaqIzi parmaqizi
+
+@OneToOne{
+cascade = CascadeType.All,
+fetch = FetchType.LAZY,,
+orphanRemoval = true  // true olarsa , join olan datani update etsek bu zaman silinen data(update olub deyishilen) db den de silinecek
+}
+private Insan insan
+
+8.--------@ManyToMany - join olan table ile arada elaqni gosterir
+numune: kitab ve yazichi (1 kitabin bir neche yazichisi ve ya 1 yazichinin bir neche kitabi ola biler)
+Diqqet!!!! burada her biri ozunde data structures saxlayir  
+
+@ManyToMany{
+cascade = CascadeType.All,   //bu table da data remove,edit ve s emelyatlari join oldugu tablein uygun datasina tetbiq etmek uchun cascade type verilir
+targetEntity = Yazichilar.class // hansi class ile elaqede oldugunu gosterir
+fetch = FetchType.LAZY,  // join oldugu tablein datasini getirmek uchundur LAZY ve EAGER olur
+}
+private Set yazichilar = new HashSet();
+
+@ManyToMany{
+fetch = FetchType.LAZY,
+mappedBy = "yazichilar"
+}
+private Set<Kitab> kitablar = new HashSet<Kitab>();
+
+9.--------------@ManyToOne - join olan table ile arada  elaqni gosterir
+numune: sheher ve olke (1 olkenin choxlu sheheri ola biler amma bir sheher 1 olkeye mexsusdur)
+Sheher entity de bu annotation ishlenir
+
+@ManyToOne{
+cascade = CascadeType.All,   //bu table da data remove,edit ve s emelyatlari join oldugu tablein uygun datasina tetbiq etmek uchun cascade type verilir
+targetEntity = Country.class // hansi class ile elaqede oldugunu gosterir
+fetch = FetchType.LAZY,  // join oldugu tablein datasini getirmek uchundur LAZY ve EAGER olur
+optional = false
+}
+private Country country;
+
+10.---------------@OneToMany - join olan table ile arada  elaqni gosterir
+numune: sheher ve olke (1 olkenin choxlu sheheri ola biler amma bir sheher 1 olkeye mexsusdur)
+Country entity de bu annotation ishlenir
+
+@OneToMany{
+cascade = CascadeType.All,   //bu table da data remove,edit ve s emelyatlari join oldugu tablein uygun datasina tetbiq etmek uchun cascade type verilir
+targetEntity = Sheher.class // hansi class ile elaqede oldugunu gosterir
+fetch = FetchType.LAZY,  // join oldugu tablein datasini getirmek uchundur LAZY ve EAGER olur
+orphanRemoval = true  // true olarsa , join olan datani update etsek bu zaman silinen data(update olub deyishilen) db den de silinecek
+mappedBy = "country"
+}
+private Set sheherler = new HashSet();
+
+

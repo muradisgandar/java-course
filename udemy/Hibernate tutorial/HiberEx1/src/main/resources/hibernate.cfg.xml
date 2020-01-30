@@ -4,15 +4,51 @@
         "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hiberEx1</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">root12345</property>
-        <property name="hibernate.connection.pool_size">1</property>
-        <property name="hibernate.current_session_context_class">thread</property>
-        <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
-        <mapping resource="book.hbm.xml" />
+        <!-- JDBC Database connection settings -->
+
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+
+        <property name="connection.url">jdbc:mysql://localhost:3306/hiberEx1?useSSL=false</property>
+
+        <property name="connection.username">root</property>
+
+        <property name="connection.password">root12345</property>
+
+        <!-- JDBC connection pool settings ... using built-in test pool -->
+
+        <property name="connection.pool_size">100</property>
+
+        <!-- Select our SQL dialect -->
+
+        <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+
+        <!-- Echo the SQL to stdout -->
+
+        <property name="show_sql">true</property>
+
+        <!-- Set the current session context -->
+
+        <property name="current_session_context_class">thread</property>
+
+        <!-- Update the database schema  -->
+
+        <property name="hbm2ddl.auto">update</property>
+
+        <!-- dbcp connection pool configuration -->
+
+        <property name="hibernate.dbcp.initialSize">5</property>
+
+        <property name="hibernate.dbcp.maxTotal">20</property>
+
+        <property name="hibernate.dbcp.maxIdle">10</property>
+
+        <property name="hibernate.dbcp.minIdle">5</property>
+
+        <property name="hibernate.dbcp.maxWaitMillis">-1</property>
+
+        <!-- for mapping Pojo entity to database for creating POJO_TABLE -->
+        <mapping class="com.company.main.entities.Pojo" /> 
+
     </session-factory>
 </hibernate-configuration>
