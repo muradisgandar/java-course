@@ -7,8 +7,9 @@ package com.company.main.services;
 
 import com.company.main.dao.ProductDAO;
 import com.company.main.entities.Product;
+import com.company.main.enums.EnumMeasurementUnit;
+import java.util.Date;
 import java.util.List;
-import org.hibernate.criterion.MatchMode;
 
 /**
  *
@@ -39,6 +40,34 @@ public class ProductService {
         return productDAO.findAllProductBetweenStockAmountMaxAndMin2(min, max);
     }
 
+    public List<Product> findAllWithOrder() {
+        return productDAO.findAllWithOrder();
+    }
+
+    public List<Product> findAllWithOrderByLimit(int maxResult) {
+        return productDAO.findAllWithOrderByLimit(maxResult);
+    }
+
+    public List<Product> findAllByRecentUsageDate(Date date) {
+        return productDAO.findAllByRecentUsageDate(date);
+    }
+
+    public Long sumStockAmountbyProductTypeId(Long productTypeId) {
+        return productDAO.sumStockAmountbyProductTypeId(productTypeId);
+    }
+
+    public Long countProductbyProductTypeId(Long productTypeId) {
+        return productDAO.countProductbyProductTypeId(productTypeId);
+    }
+    
+    public List<EnumMeasurementUnit> findAllUnits(){
+        return productDAO.findAllUnits();
+    }
+    
+    public Double findAvgStockAmount(){
+        return productDAO.findAvgStockAmount();
+    }
+    
     
     
 }

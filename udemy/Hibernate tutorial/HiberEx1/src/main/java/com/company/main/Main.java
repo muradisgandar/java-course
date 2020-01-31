@@ -8,6 +8,7 @@ package com.company.main;
 import com.company.main.dao.ProductKindDAO;
 import com.company.main.entities.Product;
 import com.company.main.entities.ProductKind;
+import com.company.main.enums.EnumMeasurementUnit;
 import com.company.main.services.ProductKindService;
 import com.company.main.services.ProductService;
 import com.company.main.utils.HibernateUtil;
@@ -23,25 +24,21 @@ import org.hibernate.criterion.MatchMode;
 public class Main {
 
     public static void main(String[] args) {
-        
+
 //        Session session = HibernateUtil.getSessionFactory().openSession();
 //        Transaction transaction = session.beginTransaction();
 //        
 //        session.merge(new Product());
 //        session.merge(new ProductKind());
 //        transaction.commit();
+        ProductService productService = new ProductService();
 
-//        ProductService productService = new ProductService();
+        Double amount = productService.findAvgStockAmount();
+        System.out.println(amount);
+
+//        ProductKindService productKindService = new ProductKindService();
 //        
-//        List<Product> prod = productService.findByName("EATABLE", MatchMode.EXACT);
+//        List<ProductKind> prod = productKindService.findByName("E", MatchMode.START);
 //        prod.forEach(p->System.out.println(p.getName()));
-        
-        
-        ProductKindService productKindService = new ProductKindService();
-        
-        List<ProductKind> prod = productKindService.findByName("E", MatchMode.START);
-        prod.forEach(p->System.out.println(p.getName()));
-        
-
     }
 }
