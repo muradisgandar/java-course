@@ -48,7 +48,8 @@
         <property name="hibernate.dbcp.maxWaitMillis">-1</property>
 
         <!-- for mapping Pojo entity to database for creating POJO_TABLE -->
-        <mapping class="com.company.main.entities.Pojo" /> 
-
+        
+        <mapping class="com.company.main.entities.Product"></mapping>
+        <mapping class="com.company.main.entities.ProductKind"></mapping>
     </session-factory>
 </hibernate-configuration>

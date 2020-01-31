@@ -5,7 +5,8 @@
  */
 package com.company.main.utils;
 
-import com.company.main.entities.Pojo;
+import com.company.main.entities.Product;
+import com.company.main.entities.ProductKind;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
