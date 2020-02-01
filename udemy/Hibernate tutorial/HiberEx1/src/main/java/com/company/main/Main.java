@@ -39,10 +39,9 @@ public class Main {
 
         ProductService productService = new ProductService();
         
-        BigDecimal min = new BigDecimal(1);
-        BigDecimal max = new BigDecimal(5);
-        List<Product> prod = productService.callFindProductBetween2(min, max);
-        prod.forEach(p -> System.out.println(p.getName()));
+        Product prod = productService.findByIdWithCriteria(1L);
+//        prod.forEach(p -> System.out.println(p.getName()));
+        System.out.println(prod.getName());
 
 //        ProductKindService productKindService = new ProductKindService();
 //        

@@ -15,6 +15,9 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
@@ -40,6 +43,19 @@ public class ProductDAO {
 
         return query.list();
     }
+    
+    public List<Product> findAllWithCriteria() {// hazir JPA metodlari istifade ederek jpql(hql) sorgular yazmayacayiq 
+
+        Session session = sessionFactory.openSession();
+
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Product> query = criteriaBuilder.createQuery(Product.class);
+        
+        query.from(Product.class);
+        
+        
+        return session.createQuery(query).getResultList();
+    }
 
     public Product findById(Long id) {
 
@@ -50,6 +66,26 @@ public class ProductDAO {
 
         return (Product) query.uniqueResult();
 
+    }
+    
+    public Product findByIdWithCriteria(Long id) {
+        Session session = sessionFactory.openSession();
+        
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Product> query = criteriaBuilder.createQuery(Product.class);
+        
+        Root<Product> root = query.from(Product.class);
+        query.select(root).where(
+                criteriaBuilder.equal(root.get("id"),id)
+        );
+        
+        return session.createQuery(query).uniqueResult();
+        
+        // above code is equavialent with below one
+        
+//        Product prod = session.find(Product.class, id);
+//        return prod;
+        
     }
 
     public List<Product> findAllProductBetweenStockAmountMaxAndMin(Long min, Long max) {
@@ -62,6 +98,22 @@ public class ProductDAO {
         query.setParameter("min", min);
 
         return query.list();
+    }
+    
+    public List<Product> findAllProductBetweenStockAmountMaxAndMinWithCriteria(Long min, Long max) {
+        Session session = sessionFactory.openSession();
+        
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Product> query = criteriaBuilder.createQuery(Product.class);
+        
+        Root<Product> root = query.from(Product.class);
+//        query.select(root).where(
+//               criteriaBuilder.between(root.get("stockAmount"), min, max)
+//        );
+//        
+//        
+//        return session.createQuery(query).list();
+        return null;
     }
 
     public List<Product> findAllProductBetweenStockAmountMaxAndMin2(Long min, Long max) {

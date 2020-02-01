@@ -102,4 +102,20 @@ public class ProductService {
     public List<Product> callFindProductBetween2(BigDecimal min, BigDecimal max) {
         return productDAO.callFindProductBetween(min, max);
     }
+    
+    /*
+    --------------------------------------Criteria------------------------------------------------------
+    */
+    
+    public List<Product> findAllWithCriteria() {
+        return productDAO.findAllWithCriteria();
+    }
+    
+    public Product findByIdWithCriteria(Long id) {
+        return productDAO.findByIdWithCriteria(id);
+    }
+    
+    public List<Product> findAllProductBetweenStockAmountMaxAndMinWithCriteria(Long min, Long max) {
+        return productDAO.findAllProductBetweenStockAmountMaxAndMinWithCriteria(min, max);
+    }
 }
