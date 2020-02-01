@@ -118,4 +118,8 @@ public class ProductService {
     public List<Product> findAllProductBetweenStockAmountMaxAndMinWithCriteria(Long min, Long max) {
         return productDAO.findAllProductBetweenStockAmountMaxAndMinWithCriteria(min, max);
     }
+    
+    public List<Product> findAllWithOrderWithCriteria() {
+        return productDAO.findAllWithOrderWithCriteria();
+    }
 }

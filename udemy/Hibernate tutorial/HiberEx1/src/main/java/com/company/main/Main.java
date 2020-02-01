@@ -39,13 +39,13 @@ public class Main {
 
         ProductService productService = new ProductService();
         
-        Product prod = productService.findByIdWithCriteria(1L);
-//        prod.forEach(p -> System.out.println(p.getName()));
-        System.out.println(prod.getName());
+        List<Product> prod = productService.findAllWithOrderWithCriteria();
+        prod.forEach(p -> System.out.println(p.getName()+" "+p.getStockAmount()));
+//        System.out.println(prod.getName());
 
 //        ProductKindService productKindService = new ProductKindService();
 //        
-//        List<ProductKindDTO> prod = productKindService.findAllProductKindDTO();
-//        prod.forEach(p->System.out.println(p));
+//        List<ProductKind> prod = productKindService.findByNameWithCriteria("E", MatchMode.START);
+//        prod.forEach(p->System.out.println(p.getName()));
     }
 }

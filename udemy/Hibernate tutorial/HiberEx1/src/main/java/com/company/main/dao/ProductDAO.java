@@ -11,12 +11,14 @@ import com.company.main.entities.Product;
 import com.company.main.enums.EnumMeasurementUnit;
 import com.company.main.utils.HibernateUtil;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -106,7 +108,10 @@ public class ProductDAO {
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Product> query = criteriaBuilder.createQuery(Product.class);
         
-        Root<Product> root = query.from(Product.class);
+        //for this method this code: criteriaBuilder.between(root.get("stockAmount"), min, max) dosen't work for me
+        //but in video it works ,i don't know why it dosen't work in here(I assume that maybe hibernate version or other thing)
+        
+//        Root<Product> root = query.from(Product.class);
 //        query.select(root).where(
 //               criteriaBuilder.between(root.get("stockAmount"), min, max)
 //        );
@@ -134,6 +139,34 @@ public class ProductDAO {
         Query query = session.createQuery("select p from Product p order by stockAmount , name");
 
         return query.list();
+    }
+    
+    public List<Product> findAllWithOrderWithCriteria() {
+        Session session = sessionFactory.openSession();
+        
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Product> query = criteriaBuilder.createQuery(Product.class);
+        
+        Root<Product> root = query.from(Product.class);
+        query.select(root);
+        
+        //for one parameter
+//        query.orderBy(criteriaBuilder.asc(root.get("stockAmount")));
+
+        //for many parameters
+//        Order stockAmount = criteriaBuilder.asc(root.get("stockAmount"));
+//        Order name = criteriaBuilder.asc(root.get("name"));
+//        query.orderBy(stockAmount,name);
+        
+        //second way of set many parameters
+        List<Order> list = new ArrayList<>();
+        list.add(criteriaBuilder.asc(root.get("stockAmount")));
+        list.add(criteriaBuilder.asc(root.get("stockAmount")));
+        query.orderBy(list);
+        
+        
+        return session.createQuery(query).list();
+        
     }
 
     public List<Product> findAllWithOrderByLimit(int maxResult) {

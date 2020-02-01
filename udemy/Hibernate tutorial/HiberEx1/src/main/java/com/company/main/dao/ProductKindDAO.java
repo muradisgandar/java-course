@@ -10,6 +10,9 @@ import com.company.main.entities.Product;
 import com.company.main.entities.ProductKind;
 import com.company.main.utils.HibernateUtil;
 import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
@@ -74,6 +77,39 @@ public class ProductKindDAO {
 
         return query.list();
 
+    }
+
+    public List<ProductKind> findByNameWithCriteria(String name, MatchMode matchMode) {
+
+        String parameter = "";
+        switch (matchMode) {
+            case EXACT:
+                parameter = name;
+                break;
+
+            case START:
+                parameter = name + "%";
+                break;
+
+            case END:
+                parameter = "%" + name;
+                break;
+
+            case ANYWHERE:
+                parameter = "%" + name + "%";
+                break;
+        }
+
+        Session session = sessionFactory.openSession();
+
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<ProductKind> query = criteriaBuilder.createQuery(ProductKind.class);
+
+        Root<ProductKind> root = query.from(ProductKind.class);
+
+        query.select(root).where(criteriaBuilder.like(root.get("name"), parameter));
+
+        return session.createQuery(query).list();
     }
 
     public List<ProductKindDTO> findAllProductKindDTO() {
