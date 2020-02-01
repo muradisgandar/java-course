@@ -6,6 +6,7 @@
 package com.company.main.services;
 
 import com.company.main.dao.ProductKindDAO;
+import com.company.main.dto.ProductKindDTO;
 import com.company.main.entities.Product;
 import com.company.main.entities.ProductKind;
 import java.util.List;
@@ -39,5 +40,9 @@ public class ProductKindService {
 
         return productKindDAO.findByName(name, matchMode);
 
+    }
+    
+    public List<ProductKindDTO> findAllProductKindDTO() {
+        return productKindDAO.findAllProductKindDTO();
     }
 }

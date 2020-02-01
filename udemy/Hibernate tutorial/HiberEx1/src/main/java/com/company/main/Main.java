@@ -6,12 +6,16 @@
 package com.company.main;
 
 import com.company.main.dao.ProductKindDAO;
+import com.company.main.dto.ProductDTO;
+import com.company.main.dto.ProductInformDTO;
+import com.company.main.dto.ProductKindDTO;
 import com.company.main.entities.Product;
 import com.company.main.entities.ProductKind;
 import com.company.main.enums.EnumMeasurementUnit;
 import com.company.main.services.ProductKindService;
 import com.company.main.services.ProductService;
 import com.company.main.utils.HibernateUtil;
+import java.math.BigDecimal;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -31,14 +35,18 @@ public class Main {
 //        session.merge(new Product());
 //        session.merge(new ProductKind());
 //        transaction.commit();
-        ProductService productService = new ProductService();
 
-        Double amount = productService.findAvgStockAmount();
-        System.out.println(amount);
+
+        ProductService productService = new ProductService();
+        
+        BigDecimal min = new BigDecimal(1);
+        BigDecimal max = new BigDecimal(5);
+        List<Product> prod = productService.callFindProductBetween2(min, max);
+        prod.forEach(p -> System.out.println(p.getName()));
 
 //        ProductKindService productKindService = new ProductKindService();
 //        
-//        List<ProductKind> prod = productKindService.findByName("E", MatchMode.START);
-//        prod.forEach(p->System.out.println(p.getName()));
+//        List<ProductKindDTO> prod = productKindService.findAllProductKindDTO();
+//        prod.forEach(p->System.out.println(p));
     }
 }

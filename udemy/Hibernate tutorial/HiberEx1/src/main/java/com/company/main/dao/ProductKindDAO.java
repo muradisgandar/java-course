@@ -5,6 +5,7 @@
  */
 package com.company.main.dao;
 
+import com.company.main.dto.ProductKindDTO;
 import com.company.main.entities.Product;
 import com.company.main.entities.ProductKind;
 import com.company.main.utils.HibernateUtil;
@@ -19,33 +20,33 @@ import org.hibernate.query.Query;
  * @author murad_isgandar
  */
 public class ProductKindDAO {
-    
+
     private SessionFactory sessionFactory;
-    
-    public ProductKindDAO(){
+
+    public ProductKindDAO() {
         sessionFactory = HibernateUtil.getSessionFactory();
     }
-    
-    public List<ProductKind> findAll(){
-        
-       Session session =  sessionFactory.openSession();
-       
+
+    public List<ProductKind> findAll() {
+
+        Session session = sessionFactory.openSession();
+
         Query createQuery = session.createQuery("select p from ProductKind p");
-        
+
         return createQuery.list();
     }
-    
-    public ProductKind findById(Long id){
-        
+
+    public ProductKind findById(Long id) {
+
         Session session = sessionFactory.openSession();
 
         Query query = session.createQuery("select p from ProductKind p where id = :id ");
         query.setParameter("id", id);
-        
+
         return (ProductKind) query.uniqueResult();
-        
+
     }
-    
+
     //MatchMode interface is used for like operation
     public List<ProductKind> findByName(String name, MatchMode matchMode) {
 
@@ -74,5 +75,13 @@ public class ProductKindDAO {
         return query.list();
 
     }
-    
+
+    public List<ProductKindDTO> findAllProductKindDTO() {
+        Session session = sessionFactory.openSession();
+
+        Query query = session.createQuery("select new com.company.main.dto.ProductKindDTO(pk.id,pk.name,min(p.value),max(p.value),avg(p.value),sum(p.stockAmount),count(p.id)) from Product p,ProductKind pk where p.productKind.id = pk.id group by pk.id , pk.name");
+
+        return query.list();
+    }
+
 }

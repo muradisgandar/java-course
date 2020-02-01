@@ -1,0 +1,23 @@
+In Workbench we write them and procedures will be declared
+
+------------------------------------------------------
+	stored procedure without parameter:
+
+delimiter $$
+create procedure product_findAll()
+begin
+	select * from PRODUCT;
+end $$
+
+call product_findAll();// call procedure
+
+------------------------------------------------------
+	stored procedure with parameter:
+
+delimiter $$
+create procedure find_product_between(min decimal,max decimal)
+begin
+	select * from PRODUCT where value between min and max;
+end $$
+
+call find_product_between(1,5); //call procedure

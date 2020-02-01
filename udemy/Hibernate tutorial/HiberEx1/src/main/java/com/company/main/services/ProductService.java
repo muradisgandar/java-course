@@ -6,8 +6,11 @@
 package com.company.main.services;
 
 import com.company.main.dao.ProductDAO;
+import com.company.main.dto.ProductDTO;
+import com.company.main.dto.ProductInformDTO;
 import com.company.main.entities.Product;
 import com.company.main.enums.EnumMeasurementUnit;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -68,6 +71,35 @@ public class ProductService {
         return productDAO.findAvgStockAmount();
     }
     
+    public List<ProductDTO> findAllProductDTO() {
+        return productDAO.findAllProductDTO();
+    }
     
+    public List<ProductInformDTO> findAllInformDTO() {
+        return productDAO.findAllInformDTO();
+    }
     
+    public BigDecimal findMaxValue(){
+        return productDAO.findMaxValue();
+    }
+    
+    public BigDecimal findMinValue(){
+        return productDAO.findMinValue();
+    }
+    
+    public List<Product> callproduct_findAllProcedure() {
+        return productDAO.callproduct_findAllProcedure();
+    }
+    
+    public List<Product> callFindProductBetween(BigDecimal min, BigDecimal max) {
+        return productDAO.callFindProductBetween(min, max);
+    }
+    
+    public List<Product> callproduct_findAllProcedure2() {
+        return productDAO.callproduct_findAllProcedure();
+    }
+    
+    public List<Product> callFindProductBetween2(BigDecimal min, BigDecimal max) {
+        return productDAO.callFindProductBetween(min, max);
+    }
 }
