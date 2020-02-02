@@ -31,7 +31,9 @@ public class DateApp {
             ex.printStackTrace();
         }
 
-        List<Product> prod = productService.findAllByRecentUsageDate(date);
-        prod.forEach(p -> System.out.println(p.getName() + "  " + p.getRecentUsageDate()));
+//        List<Product> prod = productService.findAllByRecentUsageDate(date);
+        List<Product> prod2 = productService.findAllByRecentUsageDateWithCriteria(date);
+//        prod.forEach(p -> System.out.println(p.getName() + "  " + p.getRecentUsageDate()));
+        prod2.forEach(p -> System.out.println(p.getName() + "  " + p.getRecentUsageDate()));
     }
 }

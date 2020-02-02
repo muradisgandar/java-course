@@ -122,4 +122,20 @@ public class ProductService {
     public List<Product> findAllWithOrderWithCriteria() {
         return productDAO.findAllWithOrderWithCriteria();
     }
+    
+    public List<Product> findAllWithOrderByLimitWithCriteria(int maxResult) {
+        return productDAO.findAllWithOrderByLimitWithCriteria(maxResult);
+    }
+    
+    public List<Product> findAllByRecentUsageDateWithCriteria(Date date) {
+        return productDAO.findAllByRecentUsageDateWithCriteria(date);
+    }
+    
+    public Long sumStockAmountbyProductTypeIdWithCriteria() {
+        return productDAO.sumStockAmountbyProductTypeIdWithCriteria();
+    }
+    
+    public Long countProductbyProductTypeIdWithCriteria(Long productTypeId) {
+        return productDAO.countProductbyProductTypeIdWithCriteria(productTypeId);
+    }
 }

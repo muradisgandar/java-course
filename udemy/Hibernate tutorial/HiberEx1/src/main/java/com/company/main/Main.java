@@ -39,9 +39,9 @@ public class Main {
 
         ProductService productService = new ProductService();
         
-        List<Product> prod = productService.findAllWithOrderWithCriteria();
-        prod.forEach(p -> System.out.println(p.getName()+" "+p.getStockAmount()));
-//        System.out.println(prod.getName());
+        Long prod = productService.countProductbyProductTypeIdWithCriteria(1L);
+//        prod.forEach(p -> System.out.println(p.getName()+" "+p.getStockAmount()));
+        System.out.println(prod);
 
 //        ProductKindService productKindService = new ProductKindService();
 //        
