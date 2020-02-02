@@ -37,15 +37,15 @@ public class Main {
 //        transaction.commit();
 
 
-        ProductService productService = new ProductService();
-        
-        Long prod = productService.countProductbyProductTypeIdWithCriteria(1L);
-//        prod.forEach(p -> System.out.println(p.getName()+" "+p.getStockAmount()));
-        System.out.println(prod);
-
-//        ProductKindService productKindService = new ProductKindService();
+//        ProductService productService = new ProductService();
 //        
-//        List<ProductKind> prod = productKindService.findByNameWithCriteria("E", MatchMode.START);
-//        prod.forEach(p->System.out.println(p.getName()));
+//        List<ProductInformDTO> prod = productService.findAllInformDTOWithCriteria();
+//        prod.forEach(p -> System.out.println(p.getName()));
+//        System.out.println(prod);
+
+        ProductKindService productKindService = new ProductKindService();
+        
+        List<ProductKindDTO> prod = productKindService.findAllProductKindDTOGroupByWithCriteria();
+        prod.forEach(p->System.out.println(p));
     }
 }

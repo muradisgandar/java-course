@@ -75,8 +75,8 @@ public class ProductService {
         return productDAO.findAllProductDTO();
     }
     
-    public List<ProductInformDTO> findAllInformDTO() {
-        return productDAO.findAllInformDTO();
+    public List<ProductInformDTO> findAllInformDTOByJoin() {
+        return productDAO.findAllInformDTOByJoin();
     }
     
     public BigDecimal findMaxValue(){
@@ -137,5 +137,25 @@ public class ProductService {
     
     public Long countProductbyProductTypeIdWithCriteria(Long productTypeId) {
         return productDAO.countProductbyProductTypeIdWithCriteria(productTypeId);
+    }
+    
+    public BigDecimal findMaxValueWithCriteria() {
+        return productDAO.findMaxValueWithCriteria();
+    }
+    
+    public BigDecimal findMinValueWithCriteria() {
+        return productDAO.findMinValueWithCriteria();
+    }
+    
+    public Double findAvgStockAmountWithCriteria() {
+        return productDAO.findAvgStockAmountWithCriteria();
+    }
+    
+    public List<ProductDTO> findAllProductDTOWithCriteria() {
+        return productDAO.findAllProductDTOWithCriteria();
+    }
+    
+    public List<ProductInformDTO> findAllInformDTOByJoinWithCriteria() {
+        return productDAO.findAllInformDTOByJoinWithCriteria();
     }
 }

@@ -19,6 +19,7 @@ import javax.persistence.StoredProcedureQuery;
 import javax.persistence.TemporalType;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
@@ -276,6 +277,18 @@ public class ProductDAO {
 
         return (Double) query.uniqueResult();
     }
+    
+    public Double findAvgStockAmountWithCriteria() {
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        
+        CriteriaQuery<Double> query = criteriaBuilder.createQuery(Double.class);
+        Root<Product> root = query.from(Product.class);
+        
+        query.select(criteriaBuilder.avg(root.get("stockAmount")));
+        
+        return session.createQuery(query).uniqueResult();
+    }
 
     public List<ProductDTO> findAllProductDTO() {
         Session session = sessionFactory.openSession();
@@ -284,13 +297,49 @@ public class ProductDAO {
         return query.list();
 
     }
+    
+    public List<ProductDTO> findAllProductDTOWithCriteria() {
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        
+        CriteriaQuery<ProductDTO> query = criteriaBuilder.createQuery(ProductDTO.class);
+        Root<Product> root = query.from(Product.class);
+        
+        query.select(criteriaBuilder.construct(ProductDTO.class, 
+                root.get("id"),
+                root.get("name"),
+                root.get("value")
+                ));
+        
+        return session.createQuery(query).list();
+    }
 
-    public List<ProductInformDTO> findAllInformDTO() {
+    public List<ProductInformDTO> findAllInformDTOByJoin() {
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("select new com.company.main.dto.ProductInformDTO( p.id,p.name,p.value,pk.name,pk.enumProductKind) from Product p"
                 + ",ProductKind pk where p.productKind.id = pk.id");
 
         return query.list();
+    }
+    
+    public List<ProductInformDTO> findAllInformDTOByJoinWithCriteria() {
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        
+        CriteriaQuery<ProductInformDTO> query = criteriaBuilder.createQuery(ProductInformDTO.class);
+        Root<Product> root = query.from(Product.class);
+        
+        root.join("productKind", JoinType.INNER);
+        
+        query.select(criteriaBuilder.construct(ProductInformDTO.class,
+                root.get("id"),
+                root.get("name"),
+                root.get("value"),
+                root.get("productKind").get("name"),
+                root.get("productKind").get("enumProductKind")
+                ));
+        
+        return session.createQuery(query).list();
     }
 
     public BigDecimal findMaxValue() {
@@ -308,13 +357,28 @@ public class ProductDAO {
     }
 
     public BigDecimal findMaxValueWithCriteria() {
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         
+        CriteriaQuery<BigDecimal> query = criteriaBuilder.createQuery(BigDecimal.class);
+        Root<Product> root = query.from(Product.class);
+        
+        query.select(criteriaBuilder.max(root.get("value")));
+        
+        return session.createQuery(query).uniqueResult();
         
     }
     
     public BigDecimal findMinValueWithCriteria() {
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         
+        CriteriaQuery<BigDecimal> query = criteriaBuilder.createQuery(BigDecimal.class);
+        Root<Product> root = query.from(Product.class);
         
+        query.select(criteriaBuilder.min(root.get("value")));
+        
+        return session.createQuery(query).uniqueResult();
     }
     
     public List<Product> callproduct_findAllProcedure() {// for calling without parameter procedure from database with createNativeQuery()

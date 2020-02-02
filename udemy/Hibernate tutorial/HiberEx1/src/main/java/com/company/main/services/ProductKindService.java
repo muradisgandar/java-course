@@ -42,11 +42,15 @@ public class ProductKindService {
 
     }
     
-    public List<ProductKindDTO> findAllProductKindDTO() {
-        return productKindDAO.findAllProductKindDTO();
+    public List<ProductKindDTO> findAllProductKindDTOGroupBy() {
+        return productKindDAO.findAllProductKindDTOGroupBy();
     }
     
     public List<ProductKind> findByNameWithCriteria(String name, MatchMode matchMode) {
         return productKindDAO.findByNameWithCriteria(name, matchMode);
+    }
+    
+    public List<ProductKindDTO> findAllProductKindDTOGroupByWithCriteria() {
+        return productKindDAO.findAllProductKindDTOGroupByWithCriteria();
     }
 }

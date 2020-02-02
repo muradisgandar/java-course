@@ -12,6 +12,7 @@ import com.company.main.utils.HibernateUtil;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -112,12 +113,61 @@ public class ProductKindDAO {
         return session.createQuery(query).list();
     }
 
-    public List<ProductKindDTO> findAllProductKindDTO() {
+    public List<ProductKindDTO> findAllProductKindDTOGroupBy() {
         Session session = sessionFactory.openSession();
 
-        Query query = session.createQuery("select new com.company.main.dto.ProductKindDTO(pk.id,pk.name,min(p.value),max(p.value),avg(p.value),sum(p.stockAmount),count(p.id)) from Product p,ProductKind pk where p.productKind.id = pk.id group by pk.id , pk.name");
+        Query query = session.createQuery("select new com.company.main.dto.ProductKindDTO(pk.id,pk.name,min(p.value)"
+                + ",max(p.value)"
+                + ",avg(p.value)"
+                + ",sum(p.stockAmount)"
+                + ",count(p.id)) "
+                + "from Product p,ProductKind pk "
+                + "where p.productKind.id = pk.id"
+                + " group by pk.id , pk.name");
 
         return query.list();
     }
+    
+    public List<ProductKindDTO> findAllProductKindDTOGroupByWithCriteria() {
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        
+        CriteriaQuery<ProductKindDTO> query = criteriaBuilder.createQuery(ProductKindDTO.class);
+        
+        Root<Product> root = query.from(Product.class);
+        
+        root.join("productKind", JoinType.INNER);
+        
+        query.groupBy(root.get("productKind").get("id"));
+        
+        query.select(criteriaBuilder.construct(ProductKindDTO.class, 
+                root.get("productKind").get("id"),
+                root.get("productKind").get("name"),
+                criteriaBuilder.min(root.get("value")),
+                criteriaBuilder.max(root.get("value")),
+                criteriaBuilder.avg(root.get("value")),
+                criteriaBuilder.sum(root.get("stockAmount")),
+                criteriaBuilder.count(root.get("id"))
+                
+                ));
+        
+        return session.createQuery(query).list();
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 }
