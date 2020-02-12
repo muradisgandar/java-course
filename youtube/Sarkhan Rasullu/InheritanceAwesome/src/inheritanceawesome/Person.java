@@ -15,6 +15,7 @@ public class Person {
     public String surname;
     public Integer age;
 
+    public String city;
 //    public Person() {
 //        
 //    }

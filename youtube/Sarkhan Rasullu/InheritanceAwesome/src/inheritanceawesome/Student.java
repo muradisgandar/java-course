@@ -13,6 +13,7 @@ public class Student extends Person{
     
     public String email;
 
+    public String city;
     public Student() {
         this("Murad", "Isgandarli", 19);
     }
