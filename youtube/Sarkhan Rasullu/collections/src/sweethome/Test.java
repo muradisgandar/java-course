@@ -1,3 +1,5 @@
+package sweethome;
+
 import java.util.Iterator;
 
 public class Test<T> implements Iterable<T> {

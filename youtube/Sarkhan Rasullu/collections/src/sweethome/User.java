@@ -1,4 +1,5 @@
-import java.math.BigInteger;
+package sweethome;
+
 import java.util.Comparator;
 import java.util.Objects;
 
@@ -28,7 +29,7 @@ public class User implements Comparable<User> {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "sweethome.Student{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
                 '}';
@@ -37,8 +38,8 @@ public class User implements Comparable<User> {
 //    @Override
 //    public boolean equals(Object obj) {
 //        System.out.println("user equals");
-//        if(obj instanceof User){
-//            User u = (User)obj;
+//        if(obj instanceof sweethome.Student){
+//            sweethome.Student u = (sweethome.Student)obj;
 //            return this.name.equals(u.name) && this.age == u.age;
 //        }
 //        return false;

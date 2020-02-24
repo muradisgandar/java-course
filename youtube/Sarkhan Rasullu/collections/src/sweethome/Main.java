@@ -1,3 +1,5 @@
+package sweethome;
+
 import java.util.*;
 
 public class Main {
@@ -26,8 +28,8 @@ public class Main {
 
 
 
-//        List<User> list = Arrays.asList(new User("Sarkhan",25),new User("Murad",18),new User("Murad",18));
-//        Set<User> userSet = new TreeSet<>(list);
+//        List<sweethome.Student> list = Arrays.asList(new sweethome.Student("Sarkhan",25),new sweethome.Student("Murad",18),new sweethome.Student("Murad",18));
+//        Set<sweethome.Student> userSet = new TreeSet<>(list);
 //
 //        System.out.println(userSet);
 
@@ -63,7 +65,7 @@ public class Main {
 //            System.out.println(s);
 //        }
 
-//        Test<String> list = new Test<>();
+//        sweethome.Test<String> list = new sweethome.Test<>();
 //        for(String s:list){
 //
 //        }
