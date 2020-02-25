@@ -11,4 +11,11 @@ public class Teacher extends Person {
         System.out.println("teacher hashcode "+super.getName());
         return 1;
     }
+
+    @Override
+    public boolean equals(Object obj){
+        System.out.println("equals called "+obj);
+        return super.equals(obj);
+    }
+
 }

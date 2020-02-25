@@ -39,4 +39,13 @@ public abstract class Person {
     public void setSurname(String surname) {
         this.surname = surname;
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getName()+
+                " ,id=" + id +
+                        ", name='" + name + '\'' +
+                        ", surname='" + surname + '\''
+                ;
+    }
 }
