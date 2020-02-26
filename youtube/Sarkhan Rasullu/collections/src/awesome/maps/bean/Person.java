@@ -1,5 +1,7 @@
 package awesome.maps.bean;
 
+import java.util.Objects;
+
 public abstract class Person {
 
     private Integer id;
@@ -47,5 +49,20 @@ public abstract class Person {
                         ", name='" + name + '\'' +
                         ", surname='" + surname + '\''
                 ;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Person)) return false;
+        Person person = (Person) o;
+        return getId().equals(person.getId()) &&
+                getName().equals(person.getName()) &&
+                getSurname().equals(person.getSurname());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getSurname());
     }
 }
