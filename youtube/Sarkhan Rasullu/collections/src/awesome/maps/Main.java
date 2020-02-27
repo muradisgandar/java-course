@@ -1,6 +1,5 @@
 package awesome.maps;
 
-import awesome.maps.bean.Person;
 import awesome.maps.bean.Student;
 import awesome.maps.bean.Teacher;
 
@@ -14,16 +13,19 @@ public class Main {
     public static void main(String[] args) {
 
         Student s = new Student(25,"Azay","Jalil");
+        Student s2 = new Student(25,"Azay","Jalil");
         Teacher t = new Teacher(25,"Azay","Jalil");
 
-        System.out.println(s.hashCode());
-        System.out.println(t.hashCode());
+//        System.out.println(s.hashCode());
+//        System.out.println(s2.hashCode());
 
-        Map<Person,Integer> map = new HashMap<>();
+
+
+        Map<Student,Integer> map = new HashMap<>();
         map.put(s,1);
-        map.put(t,2);
+        map.put(s2,2);
 
-
+        System.out.println(map.values());
 
     }
 }
