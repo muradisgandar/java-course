@@ -2,7 +2,7 @@ package awesome.maps.bean;
 
 public class Student extends Person {
 
-    public Student(Integer id, String name, String surname) {
-        super(id, name, surname);
+    public Student(int age, String name, String surname) {
+        super(age, name, surname);
     }
 }
