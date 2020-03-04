@@ -3,6 +3,9 @@
   <persistence-unit name="com.company_HiberEx1_jar_1.0PU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>main.entity.Goods</class>
+    <class>main.entities.Orders</class>
+    <class>com.company.main.entities.Orders</class>
+    <class>com.company.main.entities.Goods</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/supplier?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
